@@ -1,10 +1,10 @@
 const taskList = document.getElementById('taskList');
-const saveBtn = document.getElementById('saveBtn');
+const addBtn = document.getElementById('addBtn');
 const deleteBtn = document.getElementById('deleteBtn');
 const taskContent = document.getElementById('taskContent');
 const tasks = [];
 
-saveBtn.addEventListener('click', () => {
+addBtn.addEventListener('click', () => {
   if (taskContent.value !== '') {
     // タスクを配列に追加
     tasks.push(taskContent.value);
@@ -13,10 +13,11 @@ saveBtn.addEventListener('click', () => {
     taskList.innerHTML = '';
 
     tasks.forEach((task, index) => {
-      // 各タスク項目（タスクと削除ボタン）を作成
+      // 各タスク項目（タスクと削除ボタンと完了ボタン）を作成
       let taskItem = document.createElement('li');
       taskItem.className = 'taskItem';
       taskItem.textContent = task;
+
       // 削除ボタンを作成
       let deleteBtn = document.createElement('button');
       deleteBtn.textContent = '削除';
@@ -25,7 +26,6 @@ saveBtn.addEventListener('click', () => {
       taskItem.appendChild(deleteBtn);
       // タスク項目を追加
       taskList.appendChild(taskItem);
-
       // 削除ボタンのイベントリスナー
       deleteBtn.addEventListener('click', () => {
         // DOMからの削除
@@ -36,6 +36,22 @@ saveBtn.addEventListener('click', () => {
           tasks.splice(index, 1);
         }
       });
+
+      // 完了ボタンを作成
+      let doneBtn = document.createElement('button');
+      doneBtn.textContent = '完了';
+      doneBtn.className = 'doneBtn';
+      // 完了ボタンを項目に追加
+      taskItem.appendChild(doneBtn);
+      // タスク項目を追加
+      taskList.appendChild(taskItem);
+      // 完了ボタンのイベントリスナー
+      doneBtn.addEventListener('click', () => {
+        // 取り消し線をつける
+        taskItem.style.textDecoration = 'line-through';
+      });
+
+
     });
   } else {
     alert('タスクを入力してください');
