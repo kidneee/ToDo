@@ -4,17 +4,17 @@ const taskContent = document.getElementById('taskContent');
 const tasks = [];
 
 addBtn.addEventListener('click', () => {
+  const task = taskContent.value;
+
   if (taskContent.value !== '') {
     // タスクを配列に追加
-    let task = taskContent.value;
+
     tasks.push(task);
 
     // 各タスク項目（タスクと削除ボタンと完了ボタン）を作成
     let taskItem = document.createElement('li');
     taskItem.className = 'taskItem';
     taskItem.textContent = task;
-    // タスク項目を追加
-    taskList.appendChild(taskItem);
 
     // 削除ボタンを作成
     let deleteBtn = document.createElement('button');
@@ -43,12 +43,15 @@ addBtn.addEventListener('click', () => {
     doneBtn.addEventListener('click', () => {
       // class付与
       taskItem.classList.toggle('done');
-
     });
+
+    // タスク項目を追加
+    taskList.appendChild(taskItem);
+
+    //入力欄をクリア
+  taskContent.value = '';
+
   } else {
     alert('タスクを入力してください');
   }
-
-  //入力欄をクリア
-  taskContent.value = '';
 });
